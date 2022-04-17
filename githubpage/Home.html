@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href = "style.css">
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <link href="./css/nav.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--heading part-->
+<div id = "title" style="width:100%;" >
+  <div id="app" class="container mt-5" style="height:100%">
+    <div class="navBox">
+        <div class="navMainBox">
+            <div class="iconBox">
+                <img src="./image/webIcon.jpg" alt="">
+            </div>
+            <div class="navList">
+                <div class="navChunk" v-for="(item,index) in navList" :key="index">
+                    <a :href="item.link">{{item.name}}</a>
+                </div>
+            </div>
+            <div class="searchBox">
+                <div class="searchIcon"  v-show="!showSearchchunk" @click="showSearch">
+                    <img class="IconWhite" src="./image/search.png" alt="">
+                    <img class="IconYellow" src="./image/searchYellow.png" alt="">
+                </div>
+                <div class="searchChunk" v-show="showSearchchunk">
+                    <img class="search" src="./image/searchGray.png" alt="">
+                    <input type="text" placeholder="Search..." @keyup.enter="searchF">
+                    <div class="closeBox">
+                        <img class="closeGray"  src="./image/closeGray.png" alt="" @click="closeSearch">
+                        <img class="closeYellow"  src="./image/closeYellow.png" alt="" @click="closeSearch">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<!--other news-->
+<div id="container" style="width:100%;">
+    <div id = "news0" style = "background-color:#EEEEEE;width:100%;height:100%;border:2px;float:left;">
+        <a href="https://avfigures.com" hidefocus="true" title="#" >
+            <img src="image/cocktail.jpeg" width = 100% height = 100% align="right" alt="error">
+        </a>
+    </div>
+
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+                        showSearchchunk:false, //控制搜索框显示
+                    // 导航链接 link 自己配置下
+                    navList:[
+                        {
+                            name:'Home',
+                            link:'./Home.html',
+                        },
+                        {
+                            name:'Our Website',
+                            link:'./Ourweb.html',
+                        },
+                        {
+                            name:'Recipe',
+                            link:'./Recipe.html',
+                        },
+                        {
+                            name:'Life style',
+                            link:'./Lifestyle.html',
+                        },
+
+                    ],
+
+        },
+
+        methods:{
+            // 打开搜索框
+            showSearch(){
+                this.showSearchchunk = true
+            },
+            // 关闭搜索框
+            closeSearch(){
+                this.showSearchchunk = false
+            },
+            // input绑定enter搜索方法
+            searchF(){
+                console.log('搜索')
+            },
+          }
+
+    })
+
+
+
+</script>
+</body>
+
+</html>

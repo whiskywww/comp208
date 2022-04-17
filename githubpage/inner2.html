@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle</title>
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <!-- 导航样式 -->
+    <link href="./css/nav.css" rel="stylesheet" type="text/css" />
+    <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+        }
+        .mainBox{
+            display: flex;
+            flex-wrap: wrap;
+            /* justify-content: center; */
+            width: 60%;
+            margin: 0 auto;
+            margin-top: 130px;
+        }
+        .title{
+            font-size: 36px;
+            width: 100%;
+        }
+        .infor{
+            padding: 15px 0;
+        }
+        .imgBox,.imgBox img{
+            width: 100%;
+            padding-top: 10px;
+        }
+        .content {
+            padding: 20px 0 40px 0;
+        }
+
+        .History{
+        }
+
+        .Ingredients,.Steps,.History{
+            width: 100%;
+        }
+        .Ingredients{}
+        .Steps{}
+        .chunkTitle{
+            width: 100%;
+            font-size: 24px;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            width: 100%;
+        }
+        .Ingredients ul li{
+            position: relative;
+            list-style:none;
+            font-size: 14px;
+            line-height: 30px;
+        }
+        .Ingredients ul li::before{
+            position: absolute;
+            left: -15px;
+            top: -3px;
+            content: "■";
+            color: #9d2a2c;
+            font-size: 10px;
+            transform: rotate(45deg);
+        }
+        .Steps ul li{
+            list-style:none;
+            font-size: 17px;
+            line-height: 30px;
+        }
+        .stepsNums{
+            color: #9d2a2c;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="maxBox">
+        <!-- 导航栏 -->
+        <div class="navBox">
+            <div class="navMainBox">
+                <div class="iconBox">
+                    <img src="./image/webIcon.jpg" alt="">
+                </div>
+                <div class="navList">
+                    <div class="navChunk" v-for="(item,index) in navList" :key="index">
+                        <a :href="item.link">{{item.name}}</a>
+                    </div>
+                </div>
+                <div class="searchBox">
+                    <div class="searchIcon"  v-show="!showSearchchunk" @click="showSearch">
+                        <img class="IconWhite" src="./image/search.png" alt="">
+                        <img class="IconYellow" src="./image/searchYellow.png" alt="">
+                    </div>
+                    <div class="searchChunk" v-show="showSearchchunk">
+                        <img class="search" src="./image/searchGray.png" alt="">
+                        <input type="text" placeholder="Search..." @keyup.enter="searchF">
+                        <div class="closeBox">
+                            <img class="closeGray"  src="./image/closeGray.png" alt="" @click="closeSearch">
+                            <img class="closeYellow"  src="./image/closeYellow.png" alt="" @click="closeSearch">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 导航栏 -->
+        <!-- 内容 -->
+        <div class="mainBox">
+            <div class="title">{{contentData.title}}</div>
+            <div class="imgBox">
+                <img :src="contentData.img" alt="">
+            </div>
+
+            <div class="content">
+                <p v-for="(item,index) in contentData.paragraphs">{{item}}</p>
+            </div>
+            <div class="Ingredients">
+                <div class="chunkTitle">Ingredients</div>
+                <ul>
+                    <li v-for="(item,index) in contentData.Ingredients">{{item}}</li>
+                </ul>
+            </div>
+            <div class="Steps">
+                <div class="chunkTitle">Steps</div>
+                <ul>
+                    <li v-for="(item,index) in contentData.Steps">
+                        <span class="stepsNums">{{index+1}}.</span>
+                        <span>{{item}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        const contentData = {
+            title:'Pommegrante Mojito',
+            img:'image/P_M.jpeg',
+            paragraphs:[
+                "It's the perfect alternative to a classic mojito, and the delicious flavor of pomegranate makes it an amazing summer refreshment. Make sure to serve with plenty of ice for extra cooling."
+            ],
+
+            Ingredients:[
+                ' highball cup',
+                '10-12 fresh mint leaves',
+                '1 tablespoon caster sugar',
+                '30 ml lime juice',
+                '45 ml white rum',
+                '45 ml pomegranate juice',
+                'lots of ice',
+                'pomegranate seeds for garnish',
+                'small amount of soda',
+            ],
+            Steps:[
+              'Toss the mint leaves with sugar in the bottom of a cocktail shaker.',
+              'Add the lime juice, rum and pomegranate juice to the shaker. Half-fill ice cubes and shake vigorously for 20 seconds.',
+              'Using a cocktail strainer (hawthorn strainer), pour into a highball glass filled with ice and garnish with some pomegranate seeds.',
+              'Add a little soda water and serve.',
+            ],
+        }
+    </script>
+    <script>
+    new Vue({
+        el: '#maxBox',
+        data: {
+            // 导航
+            showSearchchunk:false, //控制搜索框显示
+            // 导航链接 link 自己配置下
+            navList:[
+                {
+                    name:'Home',
+                    link:'./Home.html',
+                },
+                {
+                    name:'Our Website',
+                    link:'./Ourweb.html',
+                },
+                {
+                    name:'Recipe',
+                    link:'./Recipe.html',
+                },
+                {
+                    name:'Life style',
+                    link:'./Lifestyle.html',
+                },
+
+            ],
+            contentData:contentData, //内容数据
+        },
+        methods:{
+            // 打开搜索框
+            showSearch(){
+                this.showSearchchunk = true
+            },
+            // 关闭搜索框
+            closeSearch(){
+                this.showSearchchunk = false
+            },
+            // input绑定enter搜索方法
+            searchF(){
+                console.log('搜索')
+            },
+            // 分页
+            toPage(e){
+                if(e=='Prev'){
+                    if(this.currentPage!=1){
+                        this.currentPage =  this.currentPage -1
+                        this.contentList = data[`contentList${this.currentPage}`]
+                    }else{
+                        alert('It is already page one')
+                    }
+                }else if(e =='Next'){
+                    let maxPage = this.pageList[this.pageList.length-1]
+                    if(this.currentPage!=maxPage){
+                        this.currentPage =  this.currentPage +1
+                        this.contentList = data[`contentList${this.currentPage}`]
+                    }else{
+                        alert('It is already the last page')
+                    }
+                }else{
+                    this.currentPage = Number(e)
+                    this.contentList = data[`contentList${this.currentPage}`]
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

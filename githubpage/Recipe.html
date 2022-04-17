@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, user-scalable=yes">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <title>cocktail</title>
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <link href="./css/nav.css" rel="stylesheet" type="text/css" />
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+        .text-card {
+          display: flex;
+          margin-bottom: 1.5rem;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .text-card a.text-card__link {
+          border-bottom: none;
+        }
+        .text-card__link {
+          display: block;
+          background-color: #f7f6f5;
+        }
+        .img-zoom {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: auto;
+          overflow: hidden;
+        }
+        .img-zoom__image:hover {
+          transform: scale(1.2);
+        }
+        .img-zoom__image {
+          transform: scale(1);
+          transition: all .3s ease!important;
+        }
+        .img-fluid {
+          display: block;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+        }
+        img {
+          vertical-align: middle;
+          border-style: none;
+        }
+        .text-card--large .text-card__title {
+          padding: .1000rem;
+          margin: 0;
+          font-size: 1rem;
+        }
+        .text-card__title {
+          text-align: center;
+          flex-wrap: nowrap;
+          display: block;
+          font-size: .875rem;
+          font-weight: 700;
+          color: #333;
+          padding: .5rem;
+        }
+
+        .h2{
+          font-size:40px;
+          color: gold;
+          letter-spacing: 0;
+          text-shadow:
+          0px 1px 0px #999,
+          0px 2px 0px #888,
+          0px 3px 0px #777,
+          0px 4px 0px #666,
+          0px 5px 0px #555,
+          0px 6px 0px #444,
+          0px 7px 0px #333,
+          0px 8px 7px #001135
+        }
+        .h1{
+          font-size:70px;
+          color: gold;
+          letter-spacing: 0;
+          text-shadow:
+          0px 1px 0px #999,
+          0px 2px 0px #888,
+          0px 3px 0px #777,
+          0px 4px 0px #666,
+          0px 5px 0px #555,
+          0px 6px 0px #444,
+          0px 7px 0px #333,
+          0px 8px 7px #001135
+        }
+        a{
+           text-decoration:none
+        }
+    </style>
+</head>
+<body>
+  <div id="app" class="container mt-5" style="height:100%">
+    <div class="navBox">
+        <div class="navMainBox">
+            <div class="iconBox">
+                <img src="./image/webIcon.jpg" alt="">
+            </div>
+            <div class="navList">
+                <div class="navChunk" v-for="(item,index) in navList" :key="index">
+                    <a :href="item.link">{{item.name}}</a>
+                </div>
+            </div>
+            <div class="searchBox">
+                <div class="searchIcon"  v-show="!showSearchchunk" @click="showSearch">
+                    <img class="IconWhite" src="./image/search.png" alt="">
+                    <img class="IconYellow" src="./image/searchYellow.png" alt="">
+                </div>
+                <div class="searchChunk" v-show="showSearchchunk">
+                    <img class="search" src="./image/searchGray.png" alt="">
+                    <input type="text" placeholder="Search..." @keyup.enter="searchF">
+                    <div class="closeBox">
+                        <img class="closeGray"  src="./image/closeGray.png" alt="" @click="closeSearch">
+                        <img class="closeYellow"  src="./image/closeYellow.png" alt="" @click="closeSearch">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="h1" align ="center" style="margin-top:70px">
+      Recipe
+    </h1>
+    <h2 class="h2" align ="center">
+      Six Common Cocktail Bases
+    </h2>
+    <div class="row">
+      <div class="col-lg-4 text-card" v-for="(item,index) in list" :key="index">
+        <a :href="item.source" class="text-card__link promo-click-srcb">
+          <div class="img-zoom">
+              <img class="blur-up img-fluid img-zoom__image" :alt="item.title" :src="item.img">
+          </div>
+          <h3 class="h4 text-card__title">
+              {{item.title}}
+          </h3>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+      new Vue({
+          el: '#app',
+          data: {
+                          showSearchchunk:false, //控制搜索框显示
+                      // 导航链接 link 自己配置下
+
+                      navList:[
+                          {
+                              name:'Home',
+                              link:'./Home.html',
+                          },
+                          {
+                              name:'our website',
+                              link:'./Ourweb.html',
+                          },
+                          {
+                              name:'Recipe',
+                              link:'./Recipe.html',
+                          },
+                          {
+                              name:'Life style',
+                              link:'./Lifestyle.html',
+                          },
+
+                      ],
+              //bgImg: '',
+              list: [
+                  {
+                      img: 'image/GIN.png',
+                      title:'GIN',
+                      source: 'Recipe_inner.html'
+                  },
+                  {
+                      img: 'image/whisky.png',
+                      title:'WHISKY',
+                      source: 'http://www.divcss5.com'
+                  },
+                  {
+                      img: 'image/brandy.png',
+                      title:'BRANDY',
+                      source: 'http://www.divcss5.com'
+                  },
+                  {
+                      img: 'image/RUM.png',
+                      title:'RUM',
+                      source: 'http://www.divcss5.com'
+                  },
+                  {
+                      img: 'image/vodka.png',
+                      title:'VODKA',
+                      source: 'http://www.divcss5.com'
+                  },
+                  {
+                      img: 'image/tequila.png',
+                      title:'TEQULIA',
+                      source: 'http://www.divcss5.com'
+                  },
+              ]
+
+          },
+
+          methods:{
+              // 打开搜索框
+              showSearch(){
+                  this.showSearchchunk = true
+              },
+              // 关闭搜索框
+              closeSearch(){
+                  this.showSearchchunk = false
+              },
+              // input绑定enter搜索方法
+              searchF(){
+                  console.log('搜索')
+              },
+            }
+
+      })
+
+    function bgImg(x){
+      x.style.height = "100px"
+      x.style.width  = "100px"
+    }
+    function normalImg(x){
+      x.style.height = "50px"
+      x.style.width  = "100px"
+    }
+
+  </script>
+</body>
+</html>

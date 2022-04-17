@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle</title>
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <!-- 导航样式 -->
+    <link href="./css/nav.css" rel="stylesheet" type="text/css" />
+    <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+        }
+        .mainBox{
+            display: flex;
+            flex-wrap: wrap;
+            /* justify-content: center; */
+            max-width: 88%;
+            margin: 0 auto;
+            margin-top: 130px;
+        }
+        .articleChunk{
+            background-color: #ffffff;
+            margin-right: 20px;
+            border: 1px solid #eee;
+            box-shadow: 1px 1px 6px 0 rgb(0 0 0 / 9%);
+            margin-bottom: 40px;
+            cursor: pointer;
+        }
+        .articleChunk:nth-child(3n){
+            margin-right: 0;
+        }
+        .articleChunk:hover {
+            transform: translateY(-2px);
+        }
+        .articleImg{
+            height: 380px;
+            width: 380px;
+        }
+        .articleImg img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .content{
+            padding-bottom: 30px;
+            padding-left: 10px;
+            padding-top: 25px;
+        }
+        .articleType{
+            color: #9d2a2c;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .articleTitle{
+            font-size: 24px;
+            padding-top: 5px;
+            font-family: Lusitana,Georgia,serif;
+        }
+        .articleTitle:hover{
+            text-decoration: underline #9d2a2c; /*下划线*/
+        }
+        .page ul{
+            text-align: center;
+            width: 960px;
+            height: 42px;
+            margin: 0 auto;
+            list-style:none;
+            border: 1px solid #dfdfdf;
+            background-color:none;
+            position:fixed;
+            bottom:0px;
+            right:10px;
+            left:10px;
+            z-index: 10;
+            border: none;
+        }
+        .page ul li{
+            display: inline;
+            list-style: none;
+            display: inline;
+            position: relative;
+            top:10px;
+            padding: 10px 15px;
+            background-color: gold;
+            border: 5px solid none;
+            color: black;
+            font:12px 'Arial';
+            text-decoration: none;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 1px solid #000;
+        }
+        .page ul li:hover{
+            background: orange;
+            opacity: 0.5;
+        }
+        .checkPage{
+            background: orange;
+            opacity: 0.5;
+        }
+        a{
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+    <div id="maxBox">
+        <!-- 导航栏 -->
+        <div class="navBox">
+            <div class="navMainBox">
+                <div class="iconBox">
+                    <img src="image/lab.PNG" alt="">
+                </div>
+                <div class="navList">
+                    <div class="navChunk" v-for="(item,index) in navList" :key="index">
+                        <a :href="item.link">{{item.name}}</a>
+                    </div>
+                </div>
+                <div class="searchBox">
+                    <div class="searchIcon"  v-show="!showSearchchunk" @click="showSearch">
+                        <img class="IconWhite" src="./image/search.png" alt="">
+                        <img class="IconYellow" src="./image/searchYellow.png" alt="">
+                    </div>
+                    <div class="searchChunk" v-show="showSearchchunk">
+                        <img class="search" src="./image/searchGray.png" alt="">
+                        <input type="text" placeholder="Search..." @keyup.enter="searchF">
+                        <div class="closeBox">
+                            <img class="closeGray"  src="./image/closeGray.png" alt="" @click="closeSearch">
+                            <img class="closeYellow"  src="./image/closeYellow.png" alt="" @click="closeSearch">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 导航栏 -->
+        <!-- 内容 -->
+        <div class="mainBox">
+            <div class="articleChunk" v-for="(item,index) in contentList" :key="index">
+                <div class="articleImg">
+                    <img :src="item.img" alt="">
+                </div>
+                <div class="content">
+                    <a source :href="item.source" target="_blank">
+                    <div class="articleTitle">{{item.title}}</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <a href="./page.html">跳转</a>
+        <div class="page">
+            <ul>
+                <li @click="toPage('Prev')">Prev</li>
+                <li :class="{checkPage:currentPage==item}" v-for="(item,index) in pageList" :key="index" @click="toPage(item)">{{item}}</li>
+                <li @click="toPage('Next')">Next</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const data = {
+            // 文章内容，自己配置下
+            contentList1:[
+                {
+                    img: 'image/P_M.jpeg',
+                    title:'Pommegrante Mojito',
+
+                    source: "inner2.html",
+                },
+                {
+                    img: 'image/Coco.jpeg',
+                    title:'Coco Negroni',
+
+                    source: 'http://www.divcss5.com'
+                },
+                {
+                    img: 'image/R_M.jpeg',
+                    title:'Raspberry Mule',
+
+                    source: 'http://www.divcss5.com'
+                },
+            ],
+            contentList2: [
+                {
+                    img: 'https://img0.baidu.com/it/u=3710426010,775306711&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500',
+                    title:'RUM',
+
+                    source: 'http://www.divcss5.com'
+                },
+                {
+                    img: 'https://img1.baidu.com/it/u=425838800,1966005541&fm=253&fmt=auto&app=138&f=JPEG?w=1176&h=500',
+                    title:'VODKA',
+
+                    source: 'http://www.divcss5.com'
+                },
+                {
+                    img: 'https://img1.baidu.com/it/u=2706284357,2354331725&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=332',
+                    title:'TEQULIA',
+
+                    source: 'http://www.divcss5.com'
+                },
+            ],
+            contentList3: [
+                {
+                    img: 'https://img0.baidu.com/it/u=3710426010,775306711&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500',
+                    title:'RUM',
+
+                    source: 'http://www.divcss5.com'
+                },
+                {
+                    img: 'https://img1.baidu.com/it/u=425838800,1966005541&fm=253&fmt=auto&app=138&f=JPEG?w=1176&h=500',
+                    title:'VODKA',
+
+                    source: 'http://www.divcss5.com'
+                },
+                {
+                    img: 'https://img1.baidu.com/it/u=2706284357,2354331725&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=332',
+                    title:'TEQULIA',
+
+                    source: 'http://www.divcss5.com'
+                },
+            ],
+            contentList4: [
+                {
+                    img: 'https://img0.baidu.com/it/u=3710426010,775306711&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500',
+                    title:'RUM',
+
+                    source: 'http://www.divcss5.com'
+                },
+                {
+                    img: 'https://img1.baidu.com/it/u=425838800,1966005541&fm=253&fmt=auto&app=138&f=JPEG?w=1176&h=500',
+                    title:'VODKA',
+
+                    source: 'http://www.divcss5.com'
+                },
+                {
+                    img: 'https://img1.baidu.com/it/u=2706284357,2354331725&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=332',
+                    title:'TEQULIA',
+
+                    source: 'http://www.divcss5.com'
+                },
+            ],
+        }
+    </script>
+    <script>
+    new Vue({
+        el: '#maxBox',
+        data: {
+            // 导航
+            showSearchchunk:false, //控制搜索框显示
+            // 导航链接 link 自己配置下
+            navList:[
+                {
+                    name:'Home',
+                    link:'./Home.html',
+                },
+                {
+                    name:'Our Website',
+                    link:'./Ourweb.html',
+                },
+                {
+                    name:'Recipe',
+                    link:'./Recipe.html',
+                },
+                {
+                    name:'Life style',
+                    link:'./Lifestyle.html',
+                },
+
+            ],
+            pageList:['1','2','3','4'], //分页
+            contentList:data.contentList1, //内容数据
+            currentPage:1, //当前页
+        },
+        methods:{
+            // 打开搜索框
+            showSearch(){
+                this.showSearchchunk = true
+            },
+            // 关闭搜索框
+            closeSearch(){
+                this.showSearchchunk = false
+            },
+            // input绑定enter搜索方法
+            searchF(){
+                console.log('搜索')
+            },
+            // 分页
+            toPage(e){
+                if(e=='Prev'){
+                    if(this.currentPage!=1){
+                        this.currentPage =  this.currentPage -1
+                        this.contentList = data[`contentList${this.currentPage}`]
+                    }else{
+                        alert('It is already page one')
+                    }
+                }else if(e =='Next'){
+                    let maxPage = this.pageList[this.pageList.length-1]
+                    if(this.currentPage!=maxPage){
+                        this.currentPage =  this.currentPage +1
+                        this.contentList = data[`contentList${this.currentPage}`]
+                    }else{
+                        alert('It is already the last page')
+                    }
+                }else{
+                    this.currentPage = Number(e)
+                    this.contentList = data[`contentList${this.currentPage}`]
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+1.引入样式
+    <!-- 导航样式 -->
+    <link href="./css/nav.css" rel="stylesheet" type="text/css" />
+2.引入HTML
+    <!-- 导航栏 -->
+    <div class="navBox">
+        <div class="navMainBox">
+            <div class="iconBox">
+                <img src="./image/webIcon.jpg" alt="">
+            </div>
+            <div class="navList">
+                <div class="navChunk" v-for="(item,index) in navList" :key="index">
+                    <a :href="item.link">{{item.name}}</a>
+                </div>
+            </div>
+            <div class="searchBox">
+                <div class="searchIcon"  v-show="!showSearchchunk" @click="showSearch">
+                    <img class="IconWhite" src="./image/search.png" alt="">
+                    <img class="IconYellow" src="./image/searchYellow.png" alt="">
+                </div>
+                <div class="searchChunk" v-show="showSearchchunk">
+                    <img class="search" src="./image/searchGray.png" alt="">
+                    <input type="text" placeholder="Search..." @keyup.enter="searchF">
+                    <div class="closeBox">
+                        <img class="closeGray"  src="./image/closeGray.png" alt="" @click="closeSearch">
+                        <img class="closeYellow"  src="./image/closeYellow.png" alt="" @click="closeSearch">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 导航栏 -->
+3.引入数据（放在vue的data里面）
+    // 导航
+    showSearchchunk:false, //控制搜索框显示
+    // 导航链接 link 自己配置下
+    navList:[
+        {
+            name:'Home',
+            link:'',
+        },
+        {
+            name:'our website',
+            link:'',
+        },
+        {
+            name:'recipe',
+            link:'',
+        },
+        {
+            name:'Life style',
+            link:'./Lifestyle.html',
+        },
+        {
+            name:'want list',
+            link:'',
+        },
+        {
+            name:'our option',
+            link:'',
+        }
+    ],
+4.注意
+    因为导航是固定定位，所以内容的盒子要设置margin-top，具体px自己调节下。
+    实例：可以参照LifeStyle.html页面

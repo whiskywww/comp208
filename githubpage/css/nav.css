@@ -1,0 +1,88 @@
+html,body{
+    padding: 0;
+    margin: 0;
+}
+input{
+    border: none;
+    outline:none;
+}
+.navBox{
+    background: linear-gradient(#000 0,#031621 64.2%,#06273a 100%);
+    border-bottom: none;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+.navBox .navMainBox{
+    margin: 0 auto;
+    padding: 16px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center ;
+}
+.iconBox img{
+    height: 45px;
+}
+.navList{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.navChunk{
+    margin-right: 30px;
+    font-weight: 700;
+}
+.navChunk:hover a{
+    border-bottom: 2px solid #ce7c2e;
+}
+.navChunk a{
+    color: #ce7c2e;
+    text-decoration: none; /* 去除默认的下划线 */
+    padding: 5px 0;
+    border-bottom: 2px solid transparent;
+}
+.searchBox{
+    position: relative;
+}
+.searchIcon,.searchIcon img{
+    height: 29px;
+    width: 29px;
+}
+/* .searchIcon .IconWhite{
+    display: block;
+} */
+.searchIcon .IconYellow{
+    display: none;
+}
+.searchIcon:hover .IconWhite{
+    display: none;
+}
+.searchIcon:hover .IconYellow{
+    display: block;
+}
+.searchChunk{
+    background-color: #ffffff;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+}
+.searchChunk .search{
+    height:25px;
+    width: 25px;
+    margin-right: 4px;
+}
+.closeBox,.closeGray,.closeYellow{
+    height:20px;
+    width: 20px;
+}
+.closeYellow{
+    display: none;
+}
+.closeBox:hover .closeGray{
+    display: none;
+}
+.closeBox:hover .closeYellow{
+    display: block;
+}
